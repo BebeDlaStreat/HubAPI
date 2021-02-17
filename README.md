@@ -1,5 +1,6 @@
 # HubAPI
 #### It's a simple API for Minecraft (spigot) to simplify some actions in a Hub plugin (like the scoreboard)
+> If you want to propose a suggestion create a new issue with the **suggestion label**
 
 For use it in your project, import the jar librairy (Maven come later)
 

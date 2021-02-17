@@ -3,6 +3,13 @@
 
 For use it in your project, import the jar librairy (Maven come later)
 
+##### TodoList :
+- [x] Create simple action for the API
+- [x] Create the github's repositories
+- [ ] Add somes protect action which can be enable or not with the api
+- [ ] Publish the first release
+- [ ] Waiting for proposals for more functionality
+
 # Example:
 ## Scoreboard
 ##### Initialize Scoreboard
@@ -22,5 +29,24 @@ HubAPI.setScoreboardLine(player, 0, "This is the first line");
 @EventHandler
 public void onQuit(PlayerQuitEvent event) {
     HubAPI.destroyScoreboard(event.getPlayer());
+}
+```
+## Hub Location
+##### Set Hub Location
+```Java
+HubAPI.setSpawn(location);
+```
+##### Get Hub Location
+```Java
+HubAPI.getSpawn();
+```
+## What you can do when a player join
+```Java
+@EventHandler
+public void onJoin(PlayerQuitEvent event) {
+    Player player = event.getPlayer();
+    HubAPI.initializeScoreboardPlayer(player, "Hub", Arrays.asList("Online:", "Rank:", "Money:", "ip: www.example.com"));
+    HubAPI.resetPlayer(player, GameMode.SURVIVAL);
+    player.teleport(HubAPI.getSpawn());
 }
 ```

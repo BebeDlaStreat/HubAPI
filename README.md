@@ -20,7 +20,7 @@ HubAPI.setScoreboardLine(player, 0, "This is the first line");
 ##### Destroy scoreboard for a player
 ```Java
 @EventHandler
-public void onJoin(PlayerQuitEvent event) {
+public void onQuit(PlayerQuitEvent event) {
     HubAPI.destroyScoreboard(event.getPlayer());
 }
 ```

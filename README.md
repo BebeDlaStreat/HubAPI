@@ -32,6 +32,16 @@ public void onQuit(PlayerQuitEvent event) {
     HubAPI.destroyScoreboard(event.getPlayer());
 }
 ```
+## Cancel Event
+##### Cancel one event
+```Java
+HubApi.cancelDamage/cancelAttack/cancelPlace/cancelBreak/cancelDrop/cancelPickup/cancelInventoryClick(player, true);
+//true enable cancel and false disable (default -> false)
+```
+##### Cancel All Event
+```Java
+HubAPI.CancelALL(player, true)
+```
 ## Hub Location
 ##### Set Hub Location
 ```Java
@@ -48,6 +58,7 @@ public void onJoin(PlayerQuitEvent event) {
     Player player = event.getPlayer();
     HubAPI.initializeScoreboardPlayer(player, "Hub", Arrays.asList("Online:", "Rank:", "Money:", "ip: www.example.com"));
     HubAPI.resetPlayer(player, GameMode.SURVIVAL);
+    HubAPI.cancelAll(e.getPlayer(), true);
     player.teleport(HubAPI.getSpawn());
 }
 ```

@@ -20,10 +20,14 @@ public void onJoin(PlayerJoinEvent event) {
     HubAPI.initializeScoreboardPlayer(event.getPlayer(), "Scoreboard's Name", Arrays.asList("line 1", "line2", "line 3..."));
 }
 ```
-##### Change Scoreboard Line
+##### Change Scoreboard's Line
 ```Java
 //The first line is the line 0
 HubAPI.setScoreboardLine(player, 0, "This is the first line");
+```
+##### Remove Scoreboard's Line
+```Java
+HubAPI.removeScoreboardLine(player, 0);
 ```
 ##### Destroy scoreboard for a player
 ```Java
@@ -40,16 +44,28 @@ HubApi.cancelDamage/cancelAttack/cancelPlace/cancelBreak/cancelDrop/cancelPickup
 ```
 ##### Cancel All Event
 ```Java
-HubAPI.CancelALL(player, true)
+HubAPI.CancelALL(player, true);
 ```
-## Hub Location
-##### Set Hub Location
+## Hub Spawn
+##### Set Hub Spawn Location
 ```Java
 HubAPI.setSpawn(location);
 ```
-##### Get Hub Location
+##### Get Hub Spawn Location
 ```Java
-HubAPI.getSpawn();
+HubAPI.getSpawn(); //if the spawn has been never set, it will return the spawn location of the first world he find
+```
+##### Set Cooldown
+```Java
+HubaAPI.setHubCooldown(int); // in tick
+```
+##### Get Cooldown
+```Java
+HubaAPI.getHubCooldown(); if the cooldown has been never set, it will return 0
+```
+##### Teleport Usin Cooldown And Hub Location
+```Java
+HubAPI.teleportToSpawn(player);
 ```
 ## What you can do when a player join
 ```Java
@@ -58,7 +74,7 @@ public void onJoin(PlayerQuitEvent event) {
     Player player = event.getPlayer();
     HubAPI.initializeScoreboardPlayer(player, "Hub", Arrays.asList("Online:", "Rank:", "Money:", "ip: www.example.com"));
     HubAPI.resetPlayer(player, GameMode.SURVIVAL);
-    HubAPI.cancelAll(e.getPlayer(), true);
+    HubAPI.cancelAll(player, true);
     player.teleport(HubAPI.getSpawn());
 }
 ```

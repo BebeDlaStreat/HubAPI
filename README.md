@@ -78,3 +78,4 @@ public void onJoin(PlayerQuitEvent event) {
     player.teleport(HubAPI.getSpawn());
 }
 ```
+The API include the ItemBuilder of NonameSL : https://www.spigotmc.org/threads/util-itembuilder-manage-items-easily.48397/

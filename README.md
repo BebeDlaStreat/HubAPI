@@ -61,7 +61,7 @@ HubaAPI.setHubCooldown(int); // in tick
 ```
 ##### Get Cooldown
 ```Java
-HubaAPI.getHubCooldown(); if the cooldown has been never set, it will return 0
+HubaAPI.getHubCooldown(); //if the cooldown has been never set, it will return 0
 ```
 ##### Teleport Usin Cooldown And Hub Location
 ```Java

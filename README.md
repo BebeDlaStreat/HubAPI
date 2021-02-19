@@ -7,7 +7,7 @@ For use it in your project, import the jar librairy (Maven come later)
 ##### TodoList :
 - [x] Create simple action for the API
 - [x] Create the github's repositories
-- [ ] Add somes protect action which can be enable or not with the api
+- [x] Add somes protect action which can be enable or not with the api
 - [ ] Publish the first release
 - [ ] Waiting for proposals for more functionality
 

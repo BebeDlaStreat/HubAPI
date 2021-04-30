@@ -1,7 +1,7 @@
 name: HubAPI
 author: BebeDlaStreat
 version: 0.1
-description: A simpla API for mangage an hub/lobby
+description: A simple API for mangage an hub/lobby
 main: fr.bebedlastreat.hubapi.HubMain
 commands:
   hubapi:

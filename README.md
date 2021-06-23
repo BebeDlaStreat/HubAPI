@@ -37,7 +37,7 @@ public void onQuit(PlayerQuitEvent event) {
 }
 ```
 ## Cancel Event
-Note: To to use event, place the .jar file of the api in your plugins folder (not release at this day because the are still bug and missing elements)
+Note: To to use events, place the .jar file of the api in your plugins folder (not release at this day because the are still bug and missing elements)
 ##### Cancel one event
 ```Java
 HubApi.cancelDamage/cancelAttack/cancelPlace/cancelBreak/cancelDrop/cancelPickup/cancelInventoryClick(player, true);

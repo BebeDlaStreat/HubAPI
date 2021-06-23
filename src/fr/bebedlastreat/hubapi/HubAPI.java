@@ -22,12 +22,10 @@ public class HubAPI implements Listener {
 //        HubAPI.resetPlayer(player, GameMode.SURVIVAL);
 //        player.teleport(HubAPI.getSpawn());
 //    }
-
-    public static File file = new File(APIHandler.getInstance().getDataFolder(), "data.yml");
+    private static APIHandler handler = APIHandler.getInstance();
+    
+    public static File file = new File(handler.getDataFolder(), "data.yml");
     public static YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-
-    public static int cooldown;
-    public static Location location;
 
     public static void setHubCooldown(int tick) {
         configuration.set("cooldown", tick);
@@ -50,11 +48,8 @@ public class HubAPI implements Listener {
         if (getHubCooldown() == 0) {
             player.teleport(getSpawn());
         } else {
-            Bukkit.getScheduler().runTaskLater(APIHandler.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    player.teleport(getSpawn());
-                }
+            Bukkit.getScheduler().runTaskLater(handler, () -> {
+                player.teleport(getSpawn());
             }, getHubCooldown());
         }
     }
@@ -79,10 +74,14 @@ public class HubAPI implements Listener {
     public static void resetPlayer(Player player, GameMode gameMode) {
         player.setFallDistance(0);
         player.setLevel(0);
+        player.setExp(0);
         player.setHealth(20);
         player.setFoodLevel(20);
-        player.setPlayerWeather(WeatherType.CLEAR);
+        player.setFireTicks(0);
+        player.resetPlayerWeather();
+        player.resetPlayerTime();
         player.setGameMode(gameMode);
+        player.teleport(getSpawn());
     }
 
     public static void cancelAll(Player player, boolean cancel) {
@@ -97,86 +96,80 @@ public class HubAPI implements Listener {
 
     public static void cancelDamage(Player player, boolean cancel) {
         if (cancel) {
-            if (!getInstance().cancelDamage.contains(player)) {
-                getInstance().cancelDamage.add(player);
+            if (!handler.cancelDamage.contains(player)) {
+                handler.cancelDamage.add(player);
             }
         } else {
-            if (getInstance().cancelDamage.contains(player)) {
-                getInstance().cancelDamage.remove(player);
+            if (handler.cancelDamage.contains(player)) {
+                handler.cancelDamage.remove(player);
             }
         }
     }
     public static void cancelAttack(Player player, boolean cancel) {
         if (cancel) {
-            if (!getInstance().cancelAttack.contains(player)) {
-                getInstance().cancelAttack.add(player);
+            if (!handler.cancelAttack.contains(player)) {
+                handler.cancelAttack.add(player);
             }
         } else {
-            if (getInstance().cancelAttack.contains(player)) {
-                getInstance().cancelAttack.remove(player);
+            if (handler.cancelAttack.contains(player)) {
+                handler.cancelAttack.remove(player);
             }
         }
     }
     public static void cancelPlace(Player player, boolean cancel) {
         if (cancel) {
-            if (!getInstance().cancelPlace.contains(player)) {
-                getInstance().cancelPlace.add(player);
+            if (!handler.cancelPlace.contains(player)) {
+                handler.cancelPlace.add(player);
             }
         } else {
-            if (getInstance().cancelPlace.contains(player)) {
-                getInstance().cancelPlace.remove(player);
+            if (handler.cancelPlace.contains(player)) {
+                handler.cancelPlace.remove(player);
             }
         }
     }
     public static void cancelBreak(Player player, boolean cancel) {
         if (cancel) {
-            if (!getInstance().cancelBreak.contains(player)) {
-                getInstance().cancelBreak.add(player);
+            if (!handler.cancelBreak.contains(player)) {
+                handler.cancelBreak.add(player);
             }
         } else {
-            if (getInstance().cancelBreak.contains(player)) {
-                getInstance().cancelBreak.remove(player);
+            if (handler.cancelBreak.contains(player)) {
+                handler.cancelBreak.remove(player);
             }
         }
     }
     public static void cancelDrop(Player player, boolean cancel) {
         if (cancel) {
-            if (!getInstance().cancelDrop.contains(player)) {
-                getInstance().cancelDrop.add(player);
+            if (!handler.cancelDrop.contains(player)) {
+                handler.cancelDrop.add(player);
             }
         } else {
-            if (getInstance().cancelDrop.contains(player)) {
-                getInstance().cancelDrop.remove(player);
+            if (handler.cancelDrop.contains(player)) {
+                handler.cancelDrop.remove(player);
             }
         }
     }
     public static void cancelPickup(Player player, boolean cancel) {
         if (cancel) {
-            if (!getInstance().cancelPickup.contains(player)) {
-                getInstance().cancelPickup.add(player);
+            if (!handler.cancelPickup.contains(player)) {
+                handler.cancelPickup.add(player);
             }
         } else {
-            if (getInstance().cancelPickup.contains(player)) {
-                getInstance().cancelPickup.remove(player);
+            if (handler.cancelPickup.contains(player)) {
+                handler.cancelPickup.remove(player);
             }
         }
     }
     public static void cancelInventoryClick(Player player, boolean cancel) {
         if (cancel) {
-            if (!getInstance().cancelInventory.contains(player)) {
-                getInstance().cancelInventory.add(player);
+            if (!handler.cancelInventory.contains(player)) {
+                handler.cancelInventory.add(player);
             }
         } else {
-            if (getInstance().cancelInventory.contains(player)) {
-                getInstance().cancelInventory.remove(player);
+            if (handler.cancelInventory.contains(player)) {
+                handler.cancelInventory.remove(player);
             }
         }
-    }
-
-
-
-    public static APIHandler getInstance() {
-        return APIHandler.getInstance();
     }
 
     public static void initializeScoreboardPlayer(Player player, String name, List<String> lines) {
@@ -187,25 +180,25 @@ public class HubAPI implements Listener {
             scoreboardSign.setLine(i, line);
         }
 
-        (APIHandler.getInstance()).boards.put(player, scoreboardSign);
+        handler.boards.put(player, scoreboardSign);
     }
     public static void setScoreboardLine(Player player, int number, String line) {
-        if ((APIHandler.getInstance()).boards.containsKey(player)) {
-            ((ScoreboardSign)(APIHandler.getInstance()).boards.get(player)).setLine(number, line);
+        if (handler.boards.containsKey(player)) {
+            (handler.boards.get(player)).setLine(number, line);
         } else {
             System.out.println("§eThe player has not a register scoreboard");
         }
     }
     public static void removeScoreboardLine(Player player, int number) {
-        if ((APIHandler.getInstance()).boards.containsKey(player)) {
-            ((ScoreboardSign)(APIHandler.getInstance()).boards.get(player)).removeLine(number);
+        if (handler.boards.containsKey(player)) {
+            (handler.boards.get(player)).removeLine(number);
         } else {
             System.out.println("§eThe player has not a register scoreboard");
         }
     }
     public static void destroyScoreboard(Player player) {
-        if ((APIHandler.getInstance()).boards.containsKey(player)) {
-            ((ScoreboardSign)(APIHandler.getInstance()).boards.get(player)).destroy();
+        if (handler.boards.containsKey(player)) {
+            (handler.boards.get(player)).destroy();
         } else {
             System.out.println("§eThe player has not a register scoreboard");
         }

@@ -11,6 +11,10 @@ For use it in your project, import the jar librairy (Maven come later)
 - [ ] Publish the first release
 - [ ] Waiting for proposals for more functionality
 
+
+Note: To to use the api, place the .jar file of the api in your plugins folder (not release at this day because they are still bug and missing elements)
+Because events and Hub Location saving make appeal to the main class
+
 # Example:
 ## Scoreboard
 ##### Initialize Scoreboard
@@ -37,7 +41,6 @@ public void onQuit(PlayerQuitEvent event) {
 }
 ```
 ## Cancel Event
-Note: To to use events, place the .jar file of the api in your plugins folder (not release at this day because they are still bug and missing elements)
 ##### Cancel one event
 ```Java
 HubApi.cancelDamage/cancelAttack/cancelPlace/cancelBreak/cancelDrop/cancelPickup/cancelInventoryClick(player, true);
